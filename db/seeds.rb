@@ -9,14 +9,14 @@
 #   end
 require 'faker'
 
-# puts "Suppression des anciens restaurants..."
-# Restaurant.destroy_all
+puts "Suppression des anciens restaurants..."
+Restaurant.destroy_all
 
 puts "Création de nouveaux restaurants..."
 
 CATEGORIES = %w[chinese italian japanese french belgian]
 
-5.times do
+7.times do
   restaurant = Restaurant.create!(
     name: Faker::Restaurant.name,
     address: Faker::Address.full_address,

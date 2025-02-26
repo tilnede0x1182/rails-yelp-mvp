@@ -1,41 +1,39 @@
-<h1>Ajouter un Restaurant</h1>
+<div class="container">
+  <h1 class="text-center">Ajouter un Restaurant</h1>
 
-<% if @restaurant.errors.any? %>
-  <div class="alert alert-danger">
-    <h2>Erreurs :</h2>
-    <ul>
-      <% @restaurant.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
+  <% if @restaurant.errors.any? %>
+    <div class="alert alert-danger">
+      <h2>Erreurs :</h2>
+      <ul>
+        <% @restaurant.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="custom-form">
+    <%= simple_form_for @restaurant do |f| %>
+      <div class="form-group">
+        <%= f.input :name, label: "Nom", input_html: { class: "form-control", placeholder: "Ex : Le Petit Gourmet" } %>
+      </div>
+
+      <div class="form-group">
+        <%= f.input :address, label: "Adresse", input_html: { class: "form-control", placeholder: "Ex : 10 rue de Rivoli, Paris" } %>
+      </div>
+
+      <div class="form-group">
+        <%= f.input :phone_number, label: "Téléphone", input_html: { class: "form-control", placeholder: "Ex : 01 23 45 67 89" } %>
+      </div>
+
+      <div class="form-group">
+        <%= f.input :category, label: "Catégorie", collection: ["chinese", "italian", "japanese", "french", "belgian"], prompt: "Sélectionner une catégorie", input_html: { class: "form-select" } %>
+      </div>
+
+      <div class="text-center">
+        <%= f.submit "Créer", class: "btn btn-primary btn-block mt-3" %>
+        <%= link_to "Retour", restaurants_path, class: "btn btn-secondary mt-2" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
-
-
-<%= form_with model: @restaurant, local: true do |form| %>
-  <div>
-    <%= form.label :name, "Nom" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :address, "Adresse" %>
-    <%= form.text_field :address %>
-  </div>
-
-  <div>
-    <%= form.label :phone_number, "Téléphone" %>
-    <%= form.text_field :phone_number %>
-  </div>
-
-  <div>
-    <%= form.label :category, "Catégorie" %>
-    <%= form.select :category, ["chinese", "italian", "japanese", "french", "belgian"] %>
-  </div>
-
-  <div>
-    <%= form.submit "Créer", class: "btn btn-primary" %>
-  </div>
-<% end %>
-
-<%= link_to "Retour", restaurants_path, class: "btn btn-secondary" %>
+</div>
