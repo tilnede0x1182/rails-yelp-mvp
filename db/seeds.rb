@@ -9,14 +9,21 @@
 #   end
 require 'faker'
 
-puts "Suppression des anciens restaurants..."
+# On veut des données en Français.
+Faker::Config.locale = 'fr'
+
+puts "Suppression des anciens restaurants et avis..."
+Review.destroy_all
 Restaurant.destroy_all
 
 puts "Création de nouveaux restaurants..."
 
 CATEGORIES = %w[chinese italian japanese french belgian]
 
-7.times do
+nombre_de_restaurants = 7
+nombre_d_avis_par_restaurant = 3
+
+nombre_de_restaurants.times do
   restaurant = Restaurant.create!(
     name: Faker::Restaurant.name,
     address: Faker::Address.full_address,
@@ -24,6 +31,16 @@ CATEGORIES = %w[chinese italian japanese french belgian]
     category: CATEGORIES.sample
   )
   puts "Restaurant créé : #{restaurant.name} - #{restaurant.category}"
+
+  # Création de 3 avis pour chaque restaurant
+  nombre_d_avis_par_restaurant.times do
+    review = Review.create!(
+      content: Faker::Restaurant.review,
+      rating: rand(0..5),
+      restaurant: restaurant
+    )
+    puts "  ➜ Avis ajouté : Note #{review.rating} - #{review.content}"
+  end
 end
 
-puts "5 restaurants créés avec succès !"
+puts "#{nombre_de_restaurants} restaurants et #{nombre_de_restaurants * nombre_d_avis_par_restaurant} avis créés avec succès !"
