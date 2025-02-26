@@ -1,0 +1,41 @@
+Créations des tables :
+
+restaurants
+	id int autogenerate
+	name varchar
+	address charchar
+	phone_number varchar
+	category varchar
+
+review
+	id int autogenerate
+	rating int
+	content text
+	restuarant_id foreign_key(restaurants)
+
+
+rails generate model Restaurant name:string address:string phone_number:string category:string
+rails generate model Review rating:integer content:text restaurant:references
+___
+
+Création des contrôleurs :
+
+rails generate controller Restaurants
+rails generate controller Reviews
+___
+
+Un visiteur peut voir la liste de tous les restaurants.
+GET "restaurants"
+Un visiteur peut ajouter un nouveau restaurant et être redirigé vers la vue show de la page de ce nouveau restaurant.
+GET "restaurants/new"
+POST "restaurants"
+Un visiteur peut voir les détails d’un restaurant, avec tous les avis associés au restaurant.
+GET "restaurants/38"
+Un visiteur peut ajouter un nouvel avis à un restaurant.
+GET "restaurants/38/reviews/new"
+POST "restaurants/38/reviews"
+____
+
+
+
+
